@@ -1,5 +1,8 @@
 package co.edu.unbosque.model;
 
+/**
+ * Pet class
+ */
 public class Pet {
     private String id;
     private long microchip;
@@ -8,6 +11,35 @@ public class Pet {
     private String size;
     private boolean potentDangerous;
     private String neighborhood;
+    
+    
+    /**
+     * Constructor Pet class
+     */
+    
+    public Pet(){
+
+    }
+    /**
+     * specific Constructor
+     * @param id
+     * @param microchip
+     * @param species
+     * @param sex
+     * @param size
+     * @param potentDangerous
+     * @param neighborhood
+     */
+    public Pet(String id, long microchip, String species, String sex, String size, boolean potentDangerous, String neighborhood) {
+        this.id = id;
+        this.microchip = microchip;
+        this.species = species;
+        this.sex = sex;
+        this.size = size;
+        this.potentDangerous = potentDangerous;
+        this.neighborhood = neighborhood;
+    }
+    
 	public String getId() {
 		return id;
 	}
