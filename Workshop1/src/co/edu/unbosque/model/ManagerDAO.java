@@ -3,6 +3,7 @@ package co.edu.unbosque.model;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
@@ -16,10 +17,10 @@ public class ManagerDAO {
 
 	private FileReader archivoCSV;
 	private CSVReader csvReader;
-	
+
 	ArrayList<Pet> petsList = new ArrayList<Pet>();
 	private Pet pet;
-	
+
 	public ManagerDAO() {
 		this.pet = new Pet();
 	}
@@ -90,11 +91,63 @@ public class ManagerDAO {
 		}
 		return mensaje + "\n# de datos excluidos: " + datosNoLeidos;
 	}
-    /**
-     * Constructor Manager class
-     */
- 
-    }
-    
+	/**
+	 * Constructor Manager class
+	 */
 
-    
+	public String findByMicrochip(long microchip){
+		String m="";
+		for(int i=0;i<petsList.size();i++) {
+			if(microchip==(petsList.get(i).getMicrochip())) {
+				m = "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + 
+						"\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + 
+						"\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + 
+						this.petsList.get(i).getNeighborhood();
+				break;
+			}else {
+				m= microchip+"Mascota no encontrada ";
+			}
+		}
+		return m;
+	}
+
+
+	public String countBySpecies(String species) {
+		int cont=0;
+		int contador=0;
+		String m= "";
+		for(int i=0; i<petsList.size();i++) {
+			if (species.equals(this.petsList.get(i).getSpecies())){
+				cont ++;
+			}else{
+				for (int j=0;j<petsList.size();i++) {
+					if (("CANINO").equals(this.petsList.get(i).getSpecies())) {
+						cont ++;
+					}
+					if (("FELINO").equals(this.petsList.get(i).getSpecies())) {
+						contador ++;
+					}
+				}
+				m= "Total de CANINOS: "+cont+ "\nTotal de Felinos: "+contador;
+			}
+		}
+		return "Total de "+ species + ": "+cont;
+	}
+
+	
+	public String countByNeighborhood(String neighborhood,String species) {
+		int cont=0;
+		int contador=0;
+		String m= "";
+		for(int i=0; i<petsList.size();i++) {
+			if (neighborhood.equals(this.petsList.get(i).getNeighborhood())&& species.equals(this.petsList.get(i).getSpecies())){
+				cont ++;
+			}else{
+			}
+		}
+		return "Total de " +species +" en la localidad de: "+ neighborhood+ "es: "+cont;
+	}
+}
+
+
+
