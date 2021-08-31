@@ -94,7 +94,48 @@ public class ManagerDAO {
 	/**
 	 * Constructor Manager class
 	 */
-
+	
+	public void assingID() {
+		String mensaje = "";
+		int contIDRepetidos = 0;
+		String d = "";
+		for (int i = 0; i < petsList.size(); i++) {
+			int numDigitosID = 2;
+			String id = String.valueOf(this.petsList.get(i).getMicrochip());
+			id = id.substring(id.length() - numDigitosID);
+			if (this.petsList.get(i).isPotentDangerous() == true) {
+				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
+				d = d.substring(0, 1).toUpperCase();
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
+						+ d + "\n";
+			} else {
+				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
+				d = d.substring(0, 1).toUpperCase();
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
+						+ d + "\n";
+			}
+			boolean cicloW = false;
+			while (!cicloW) {
+				try {
+					for (int j = i; j > 0; j--) {
+						if (mensaje.equals(this.petsList.get(j).getId())) {
+							throw new IdentifierExistsException();
+						}
+					}
+					cicloW = true;
+				} catch (IdentifierExistsException e) {
+					numDigitosID++;
+					id = String.valueOf(this.petsList.get(i).getMicrochip());
+					id = id.substring(id.length() - numDigitosID);
+					mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex()
+							+ this.petsList.get(i).getSize() + d + "\n";
+				}
+			}
+			this.petsList.get(i).setId(mensaje);
+			System.out.println(mensaje);
+		}
+	}
+	
 	public String findByMicrochip(long microchip){
 		String m="";
 		for(int i=0;i<petsList.size();i++) {
