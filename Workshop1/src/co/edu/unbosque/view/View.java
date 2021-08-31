@@ -20,5 +20,25 @@ public class View {
 		}
 		return u;
 	}
-	
+
+	public void printMessage(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+
+	public String readString(String message) {
+		return JOptionPane.showInputDialog(null, message);
+	}
+
+	public int readInt(String message) {
+		String datoStr = JOptionPane.showInputDialog(null, message);
+		int datoNum = Integer.parseInt(datoStr);
+		return datoNum;
+	}
+
+	public void optionMenu() {
+		String men = "BIENVENIDO A CIUDADANOS DE 4 PATAS\n" + "Menu de Opciones a realizar. Marque el numero\n"
+				+ "1) Leer el archivo\n2) Generar ID\3)Buscar microchip\n"
+				+ "4)Contar Especies\n5)Contar vecindarios\n6)Busqueda Avanzada\n7)SALIR";
+		JOptionPane.showMessageDialog(null, men);
+	}
 }
