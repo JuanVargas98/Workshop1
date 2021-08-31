@@ -94,7 +94,7 @@ public class ManagerDAO {
 	/**
 	 * Constructor Manager class
 	 */
-	
+
 	public void assingID() {
 		String mensaje = "";
 		int contIDRepetidos = 0;
@@ -106,12 +106,14 @@ public class ManagerDAO {
 			if (this.petsList.get(i).isPotentDangerous() == true) {
 				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
 				d = d.substring(0, 1).toUpperCase();
-				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + 
+						this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
 						+ d + "\n";
 			} else {
 				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
 				d = d.substring(0, 1).toUpperCase();
-				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + 
+						this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
 						+ d + "\n";
 			}
 			boolean cicloW = false;
@@ -123,6 +125,7 @@ public class ManagerDAO {
 						}
 					}
 					cicloW = true;
+
 				} catch (IdentifierExistsException e) {
 					numDigitosID++;
 					id = String.valueOf(this.petsList.get(i).getMicrochip());
@@ -135,7 +138,7 @@ public class ManagerDAO {
 			System.out.println(mensaje);
 		}
 	}
-	
+
 	public String findByMicrochip(long microchip){
 		String m="";
 		for(int i=0;i<petsList.size();i++) {
@@ -151,7 +154,6 @@ public class ManagerDAO {
 		}
 		return m;
 	}
-
 
 	public String countBySpecies(String species) {
 		int cont=0;
@@ -175,19 +177,51 @@ public class ManagerDAO {
 		return "Total de "+ species + ": "+cont;
 	}
 
-	
 	public String countByNeighborhood(String neighborhood,String species) {
 		int cont=0;
 		int contador=0;
 		String m= "";
 		for(int i=0; i<petsList.size();i++) {
-			if (neighborhood.equals(this.petsList.get(i).getNeighborhood())&& species.equals(this.petsList.get(i).getSpecies())){
+			if (neighborhood.equals(this.petsList.get(i).getNeighborhood())&& 
+					species.equals(this.petsList.get(i).getSpecies())){
 				cont ++;
 			}else{
 			}
 		}
 		return "Total de " +species +" en la localidad de: "+ neighborhood+ "es: "+cont;
 	}
+	
+	public String findByMultipleFields(String species, String sex, String size, String potentDangerous) {
+        String mensaje = "";
+        String sex2 = sex.substring(0, 1);
+        String species2 = species.substring(0, 1);
+        String size2 = "";
+        String potentDangerous2 = "";
+        if (size.equals("MINIATURA")) {
+            size2 = size.substring(0, 2);
+        } else {
+            size2 = size.substring(0, 1);
+        }
+        if (potentDangerous.equals("SI")) {
+            potentDangerous2 ="T";
+        } else if (potentDangerous.equals("NO")) {
+            potentDangerous2 = "F";
+        }
+        String id = species2 + sex2 + size2 + potentDangerous2;
+        for (int i = 0; i < this.petsList.size(); i++) {
+            String id2 = this.petsList.get(i).getId();
+            String id3 = "";
+            String[] cadena = id2.split("-");
+            id3 = cadena[1];
+            if (id3.equals(id)) {
+                mensaje += this.petsList.get(i).getId() + "\n";
+            }
+        }
+        return mensaje;
+    }
+	
+	
+	 
 }
 
 
