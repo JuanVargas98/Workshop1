@@ -25,6 +25,9 @@ public class ManagerDAO {
 		this.pet = new Pet();
 	}
 
+	/**
+     * This method is responsible for uploading all the information in the file to a pet type arrayList
+     */
 	public String uploadData(String ruta) {
 		int datosNoLeidos = 0;
 		String mensaje = "";
@@ -91,9 +94,11 @@ public class ManagerDAO {
 		}
 		return mensaje + "\n# de datos excluidos: " + datosNoLeidos;
 	}
+
 	/**
-	 * Constructor Manager class
-	 */
+     * This method is responsible for assigning the id to each pet in the list, taking into account
+     * all the parameters of their respective data
+     */
 
 	public void assingID() {
 		String mensaje = "";
