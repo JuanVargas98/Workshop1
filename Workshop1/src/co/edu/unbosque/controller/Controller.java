@@ -62,7 +62,7 @@ public class Controller {
 					}
 					break;
 				case 6:
-					// falta el requerimiento 6, tengo sueño jajaja
+					this.v.printMessage(this.mDAO.findByMultipleFields(15, "C", "", ""));
 					break;
 				case 7:
 					bandera = true;
