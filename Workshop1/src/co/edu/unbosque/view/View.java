@@ -35,10 +35,10 @@ public class View {
 		return datoNum;
 	}
 
-	public void optionMenu() {
+	public String optionMenu() {
 		String men = "BIENVENIDO A CIUDADANOS DE 4 PATAS\n" + "Menu de Opciones a realizar. Marque el numero\n"
-				+ "1) Leer el archivo\n2) Generar ID\3)Buscar microchip\n"
+				+ "1) Leer el archivo\n2) Generar ID\n3)Buscar microchip\n"
 				+ "4)Contar Especies\n5)Contar vecindarios\n6)Busqueda Avanzada\n7)SALIR";
-		JOptionPane.showMessageDialog(null, men);
+		return men; 
 	}
 }

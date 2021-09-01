@@ -3,15 +3,12 @@ package co.edu.unbosque.model;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-
-import co.edu.unbosque.model.Pet;
 
 public class ManagerDAO {
 
@@ -26,8 +23,9 @@ public class ManagerDAO {
 	}
 
 	/**
-     * This method is responsible for uploading all the information in the file to a pet type arrayList
-     */
+	 * This method is responsible for uploading all the information in the file to a
+	 * pet type arrayList
+	 */
 	public String uploadData(String ruta) {
 		int datosNoLeidos = 0;
 		String mensaje = "";
@@ -96,12 +94,13 @@ public class ManagerDAO {
 	}
 
 	/**
-     * This method is responsible for assigning the id to each pet in the list, taking into account
-     * all the parameters of their respective data
-     */
+	 * This method is responsible for assigning the id to each pet in the list,
+	 * taking into account all the parameters of their respective data
+	 */
 
-	public void assingID() {
+	public String assingID() {
 		String mensaje = "";
+		String mensaje2 = "";
 		int contIDRepetidos = 0;
 		String d = "";
 		for (int i = 0; i < petsList.size(); i++) {
@@ -111,15 +110,13 @@ public class ManagerDAO {
 			if (this.petsList.get(i).isPotentDangerous() == true) {
 				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
 				d = d.substring(0, 1).toUpperCase();
-				mensaje = id + "-" + this.petsList.get(i).getSpecies() + 
-						this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
-						+ d + "\n";
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex()
+						+ this.petsList.get(i).getSize() + d + "\n";
 			} else {
 				d = String.valueOf(this.petsList.get(i).isPotentDangerous());
 				d = d.substring(0, 1).toUpperCase();
-				mensaje = id + "-" + this.petsList.get(i).getSpecies() + 
-						this.petsList.get(i).getSex() + this.petsList.get(i).getSize()
-						+ d + "\n";
+				mensaje = id + "-" + this.petsList.get(i).getSpecies() + this.petsList.get(i).getSex()
+						+ this.petsList.get(i).getSize() + d + "\n";
 			}
 			boolean cicloW = false;
 			while (!cicloW) {
@@ -130,7 +127,7 @@ public class ManagerDAO {
 						}
 					}
 					cicloW = true;
-
+					mensaje2 = "El proceso de asignacion de IDs ha terminado";
 				} catch (IdentifierExistsException e) {
 					numDigitosID++;
 					id = String.valueOf(this.petsList.get(i).getMicrochip());
@@ -140,94 +137,109 @@ public class ManagerDAO {
 				}
 			}
 			this.petsList.get(i).setId(mensaje);
-			System.out.println(mensaje);
+			this.pet.setId(mensaje);
+			mensaje2 = "El proceso de asignacion de IDs ha terminado";
 		}
+		return mensaje2;
 	}
 
-	public String findByMicrochip(long microchip){
-		String m="";
-		for(int i=0;i<petsList.size();i++) {
-			if(microchip==(petsList.get(i).getMicrochip())) {
-				m = "ID: " + this.petsList.get(i).getId() + "\nSpecies: " + this.petsList.get(i).getSpecies() + 
-						"\nGender: " + this.petsList.get(i).getSex() + "\nSize: " + this.petsList.get(i).getSize() + 
-						"\nPotentially Dangerous: " + this.petsList.get(i).isPotentDangerous() + "\nNeighborhood: " + 
-						this.petsList.get(i).getNeighborhood();
+	public String findByMicrochip(long microchip) {
+		String m = "";
+		for (int i = 0; i < petsList.size(); i++) {
+			if (microchip == (petsList.get(i).getMicrochip())) {
+				m = this.pet.toString();
 				break;
-			}else {
-				m= microchip+"Mascota no encontrada ";
+			} else {
+				m = microchip + " Mascota no encontrada ";
 			}
 		}
 		return m;
 	}
 
 	public String countBySpecies(String species) {
-		int cont=0;
-		int contador=0;
-		String m= "";
-		for(int i=0; i<petsList.size();i++) {
-			if (species.equals(this.petsList.get(i).getSpecies())){
-				cont ++;
-			}else{
-				for (int j=0;j<petsList.size();i++) {
-					if (("CANINO").equals(this.petsList.get(i).getSpecies())) {
-						cont ++;
-					}
-					if (("FELINO").equals(this.petsList.get(i).getSpecies())) {
-						contador ++;
-					}
+		int contF = 0;
+		int contC = 0;
+		String m = "";
+		
+		for (int i = 0; i < petsList.size(); i++) {
+			if(species.equals("1")) {
+				if(this.petsList.get(i).getSpecies().equals("F")) {
+					contF++;
+				}else {
+					contC++;
 				}
-				m= "Total de CANINOS: "+cont+ "\nTotal de Felinos: "+contador;
+				m = "El numero de Felinos es: " + contF + "y El numero de Caninos es: " + contC;
+			}else if(species.equals("2")) {
+				if(this.petsList.get(i).getSpecies().equals("F")) {
+					contF++;
+				}
+				m = "El numero de Felinos es: " + contF;
+			}else if(species.equals("3")){
+				if(this.petsList.get(i).getSpecies().equals("C")) {
+					contC++;
+				}
+				m = "El numero de Caninos es: " + contC;
+			}else {
+				m = "Debes seleccionar una opcion valida ('1','2' o '3')";
 			}
 		}
-		return "Total de "+ species + ": "+cont;
+		return m;
 	}
 
-	public String countByNeighborhood(String neighborhood,String species) {
-		int cont=0;
-		int contador=0;
-		String m= "";
-		for(int i=0; i<petsList.size();i++) {
-			if (neighborhood.equals(this.petsList.get(i).getNeighborhood())&& 
-					species.equals(this.petsList.get(i).getSpecies())){
-				cont ++;
-			}else{
+	public String countByNeighborhood(String neighborhood) {
+		int contN = 0;
+		String m = "";
+		for (int i = 0; i < petsList.size(); i++) {
+			if (neighborhood.equals(this.petsList.get(i).getNeighborhood())) {
+				contN++;
+				m = "Total de mascotas registradas en la localidad de " + neighborhood.toUpperCase() + " es: " + contN;
 			}
 		}
-		return "Total de " +species +" en la localidad de: "+ neighborhood+ "es: "+cont;
+		return m;
 	}
-	
+
 	public String findByMultipleFields(String species, String sex, String size, String potentDangerous) {
-        String mensaje = "";
-        String sex2 = sex.substring(0, 1);
-        String species2 = species.substring(0, 1);
-        String size2 = "";
-        String potentDangerous2 = "";
-        if (size.equals("MINIATURA")) {
-            size2 = size.substring(0, 2);
-        } else {
-            size2 = size.substring(0, 1);
-        }
-        if (potentDangerous.equals("SI")) {
-            potentDangerous2 ="T";
-        } else if (potentDangerous.equals("NO")) {
-            potentDangerous2 = "F";
-        }
-        String id = species2 + sex2 + size2 + potentDangerous2;
-        for (int i = 0; i < this.petsList.size(); i++) {
-            String id2 = this.petsList.get(i).getId();
-            String id3 = "";
-            String[] cadena = id2.split("-");
-            id3 = cadena[1];
-            if (id3.equals(id)) {
-                mensaje += this.petsList.get(i).getId() + "\n";
-            }
-        }
-        return mensaje;
-    }
-	
-	
-	 
+		String mensaje = "";
+		String sex2 = sex.substring(0, 1);
+		String species2 = species.substring(0, 1);
+		String size2 = "";
+		String potentDangerous2 = "";
+		if (size.equals("MINIATURA")) {
+			size2 = size.substring(0, 2);
+		} else {
+			size2 = size.substring(0, 1);
+		}
+		if (potentDangerous.equals("SI")) {
+			potentDangerous2 = "T";
+		} else if (potentDangerous.equals("NO")) {
+			potentDangerous2 = "F";
+		}
+		String id = species2 + sex2 + size2 + potentDangerous2;
+		for (int i = 0; i < this.petsList.size(); i++) {
+			String id2 = this.petsList.get(i).getId();
+			String id3 = "";
+			String[] cadena = id2.split("-");
+			id3 = cadena[1];
+			if (id3.equals(id)) {
+				mensaje += this.petsList.get(i).getId() + "\n";
+			}
+		}
+		return mensaje;
+	}
+
+	public ArrayList<Pet> getPetsList() {
+		return petsList;
+	}
+
+	public void setPetsList(ArrayList<Pet> petsList) {
+		this.petsList = petsList;
+	}
+
+	public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
+	}
 }
-
-
-

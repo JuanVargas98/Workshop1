@@ -40,7 +40,14 @@ public class Pet {
         this.neighborhood = neighborhood;
     }
     
-    /**
+    
+    
+    @Override
+	public String toString() {
+		return "Pet [id=" + id + ", microchip=" + microchip + ", species=" + species + ", sex=" + sex + ", size=" + size
+				+ ", potentDangerous=" + potentDangerous + ", neighborhood=" + neighborhood + "]";
+	}
+	/**
      * @return the id
      */
 	public String getId() {
@@ -124,7 +131,4 @@ public class Pet {
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
 	}
-    
-    
-
 }
