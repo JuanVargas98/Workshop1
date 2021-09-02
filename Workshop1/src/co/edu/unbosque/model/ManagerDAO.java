@@ -23,8 +23,9 @@ public class ManagerDAO {
 	}
 
 	/**
-	 * This method is responsible for uploading all the information in the file to a
-	 * pet type arrayList
+	 * Este metodo carga la informacion de un archivo csv
+	 * @param ruta
+	 * @return un arrayList de las macotas con sus atributos
 	 */
 	public String uploadData(String ruta) {
 		int datosNoLeidos = 0;
@@ -94,8 +95,8 @@ public class ManagerDAO {
 	}
 
 	/**
-	 * This method is responsible for assigning the id to each pet in the list,
-	 * taking into account all the parameters of their respective data
+	 * Este metodo se encarga de asignar el id a cada mascota de la lista,con respecto a los parametros
+	 * @return la lista de las mascotas con un id asignado
 	 */
 
 	public String assingID() {
@@ -195,7 +196,7 @@ public class ManagerDAO {
 		}
 		return m;
 	}
-	
+
 	/**
 	 * Este metodo cuenta las mascotas del arrayList segun la localidad en que viven
 	 * @param neighborhood
@@ -225,11 +226,12 @@ public class ManagerDAO {
 	 */
 
 	public String findByMultipleFields(int n, String species, String sex,  String potentDangerous) {
-
 		String mensaje = "";
 		for (int i = 0; i < n; i++) {
+
 			String dangerous = String.valueOf(this.petsList.get(i).isPotentDangerous());
 			// solo species
+
 			if (this.petsList.get(i).getSpecies().equals(species)
 					&& (sex.equals("")  && potentDangerous.equals(""))) {
 				if(species.equals("C")) {
@@ -245,7 +247,37 @@ public class ManagerDAO {
 						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
 					}
 				}
-				
+
+				//solo sexo
+			} else if ( this.petsList.get(i).getSex().equals(sex)) {
+				if( sex.equals("H")) {
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+				}else if(sex.equals("M")) {
+					this.petsList.get(i).setSex("MACHO");
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+				}
+			//potentDangerous
+			} else if (potentDangerous.equals("")) {
+				if( potentDangerous.equals("T")) {
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+				}else if(potentDangerous.equals("F")) {
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+				}
 				// species y sex
 			} else if (this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex) && potentDangerous.equals("")) {
 				if(species.equals("C") && sex.equals("H")) {
@@ -278,10 +310,67 @@ public class ManagerDAO {
 					}
 				}
 			}
+			//DANGEROUS Y SEXO
+			else if(this.petsList.get(i).getSex().equals(sex) && potentDangerous.equals("")) {	
+				if (sex.equals("H")&& potentDangerous.equals("T")) {
+					this.petsList.get(i).setSex("HEMBRA");
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+				}else if(sex.equals("H")&& potentDangerous.equals("F")) {
+					this.petsList.get(i).setSex("HEMBRA");
+					this.petsList.get(i).setPotentDangerous(false);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+					
+				}else if(sex.equals("M")&& potentDangerous.equals("T")) {
+					this.petsList.get(i).setSex("MACHO");
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+					
+				}else if(sex.equals("M")&& potentDangerous.equals("F")) {
+					this.petsList.get(i).setSex("MACHO");
+					this.petsList.get(i).setPotentDangerous(false);
+					mensaje += this.petsList.get(i)+ "\n";
+					if(mensaje.equals("")) {
+						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					}
+					
+				}
+			}
 			//SPECIES Y DANGEROUS
-			else if(this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex) && potentDangerous.equals("")) {	
-				
-//				TODOS		
+			else if(this.petsList.get(i).getSpecies().equals(species) && potentDangerous.equals("")) {	
+				if(species.equals("C") &&  potentDangerous.equals("T")) {
+					this.petsList.get(i).setSpecies("CANINO");
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i)+ "\n";
+				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
+					if(species.equals("C")  && potentDangerous.equals("F")) {
+						this.petsList.get(i).setSpecies("CANINO");
+						this.petsList.get(i).setPotentDangerous(false);
+						mensaje += this.petsList.get(i)+ "\n";
+					}
+				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
+					if(species.equals("F")  && potentDangerous.equals("T")) {
+						this.petsList.get(i).setSpecies("FELINO");
+						this.petsList.get(i).setPotentDangerous(true);
+						mensaje += this.petsList.get(i)+ "\n";
+					}
+				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
+					if(species.equals("F")  && potentDangerous.equals("F")) {
+						this.petsList.get(i).setSpecies("FELINO");
+						this.petsList.get(i).setPotentDangerous(false);
+						mensaje += this.petsList.get(i)+ "\n";
+					}
+				}
+				//				TODOS		
 			}else if(this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex) && dangerous.equals(potentDangerous)) {
 				if(species.equals("C") && sex.equals("H")  && potentDangerous.equals("T")) {
 					this.petsList.get(i).setSpecies("CANINO");
@@ -418,12 +507,16 @@ public class ManagerDAO {
 					this.petsList.get(i).setSex("MACHO");
 					mensaje += this.petsList.get(i)+ "\n";
 				}
-			//
+				//
 			}
 		}
 		return mensaje;
 	}
 
+	/****
+	 * 
+	 * @return una lista de mascotas
+	 */
 	public ArrayList<Pet> getPetsList() {
 		return petsList;
 	}
@@ -434,7 +527,7 @@ public class ManagerDAO {
 	public void setPetsList(ArrayList<Pet> petsList) {
 		this.petsList = petsList;
 	}
-	
+
 	/**
 	 * 
 	 * @return una mascota
@@ -446,7 +539,7 @@ public class ManagerDAO {
 
 	/**
 	 * 
-	 * @param pet
+	 * @param una mascota
 	 */
 	public void setPet(Pet pet) {
 		this.pet = pet;
