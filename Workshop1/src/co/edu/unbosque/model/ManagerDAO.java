@@ -233,7 +233,7 @@ public class ManagerDAO {
 	 */
 
 	public String findByMultipleFields(int n, String species, String sex, String potentDangerous) {
-		String mensaje = "";
+		String mensaje = ""; 
 		for (int i = 0; i < n; i++) {
 
 			String dangerous = String.valueOf(this.petsList.get(i).isPotentDangerous());
