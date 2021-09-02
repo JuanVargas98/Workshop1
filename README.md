@@ -11,7 +11,7 @@ Docente: Fabian Peña
   - Ana Lucero Perez Diaz 
   - Oscar Santiago Florez Sanchez 
 
-* Link del video: 
+* Link del video: https://youtu.be/S5XfSVLBlSk
 
 Librerias necesarias para cargar el archivo:
 
