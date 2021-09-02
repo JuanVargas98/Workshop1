@@ -238,7 +238,7 @@ public class ManagerDAO {
 
 			String dangerous = String.valueOf(this.petsList.get(i).isPotentDangerous());
 			// solo species
-
+ 
 			if (this.petsList.get(i).getSpecies().equals(species) && (sex.equals("") && potentDangerous.equals(""))) {
 				if (species.equals("C")) {
 					this.petsList.get(i).setSpecies("CANINO");
