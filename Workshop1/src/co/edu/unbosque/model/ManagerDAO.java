@@ -143,6 +143,11 @@ public class ManagerDAO {
 		return mensaje2;
 	}
 
+	/**
+	 * Este metodo busca la mascota por su microchip en la lista de mascotas 
+	 * @param microchip
+	 * @return La mascota con su informacion
+	 */
 	public String findByMicrochip(long microchip) {
 		String m = "";
 		for (int i = 0; i < petsList.size(); i++) {
@@ -156,6 +161,11 @@ public class ManagerDAO {
 		return m;
 	}
 
+	/**
+	 * Este método cuenta las mascotas del arraylist segun la especie
+	 * @param species
+	 * @return El numero de mascotas por especie, segun el usuario ingrese 
+	 */
 	public String countBySpecies(String species) {
 		int contF = 0;
 		int contC = 0;
@@ -185,6 +195,12 @@ public class ManagerDAO {
 		}
 		return m;
 	}
+	
+	/**
+	 * Este metodo cuenta las mascotas del arrayList segun la localidad en que viven
+	 * @param neighborhood
+	 * @return El número de mascotas que hay en la localidad que el usuario ingreso.
+	 */
 
 	public String countByNeighborhood(String neighborhood) {
 		int contN = 0;
@@ -198,6 +214,14 @@ public class ManagerDAO {
 		return m;
 	}
 
+	/**
+	 * Este metodo busca una mascota por diferentes atributos segun el usuario ingrese
+	 * @param species
+	 * @param sex
+	 * @param size
+	 * @param potentDangerous
+	 * @return la mascota 
+	 */
 	public String findByMultipleFields(String species, String sex, String size, String potentDangerous) {
 		String mensaje = "";
 		String sex2 = sex.substring(0, 1);
@@ -227,18 +251,34 @@ public class ManagerDAO {
 		return mensaje;
 	}
 
+	/**
+	 * 
+	 * @return la lista de mascotas
+	 */
 	public ArrayList<Pet> getPetsList() {
 		return petsList;
 	}
-
+	/**
+	 * 
+	 * @param El arraylist petsList
+	 */
 	public void setPetsList(ArrayList<Pet> petsList) {
 		this.petsList = petsList;
 	}
+	
+	/**
+	 * 
+	 * @return una mascota
+	 */
 
 	public Pet getPet() {
 		return pet;
 	}
 
+	/**
+	 * 
+	 * @param pet
+	 */
 	public void setPet(Pet pet) {
 		this.pet = pet;
 	}
