@@ -24,6 +24,7 @@ public class ManagerDAO {
 
 	/**
 	 * Este metodo carga la informacion de un archivo csv
+	 * 
 	 * @param ruta
 	 * @return un arrayList de las macotas con sus atributos
 	 */
@@ -95,7 +96,9 @@ public class ManagerDAO {
 	}
 
 	/**
-	 * Este metodo se encarga de asignar el id a cada mascota de la lista,con respecto a los parametros
+	 * Este metodo se encarga de asignar el id a cada mascota de la lista,con
+	 * respecto a los parametros
+	 * 
 	 * @return la lista de las mascotas con un id asignado
 	 */
 
@@ -145,7 +148,8 @@ public class ManagerDAO {
 	}
 
 	/**
-	 * Este metodo busca la mascota por su microchip en la lista de mascotas 
+	 * Este metodo busca la mascota por su microchip en la lista de mascotas
+	 * 
 	 * @param microchip
 	 * @return La mascota con su informacion
 	 */
@@ -164,8 +168,9 @@ public class ManagerDAO {
 
 	/**
 	 * Este método cuenta las mascotas del arraylist segun la especie
+	 * 
 	 * @param species
-	 * @return El numero de mascotas por especie, segun el usuario ingrese 
+	 * @return El numero de mascotas por especie, segun el usuario ingrese
 	 */
 	public String countBySpecies(String species) {
 		int contF = 0;
@@ -199,6 +204,7 @@ public class ManagerDAO {
 
 	/**
 	 * Este metodo cuenta las mascotas del arrayList segun la localidad en que viven
+	 * 
 	 * @param neighborhood
 	 * @return El número de mascotas que hay en la localidad que el usuario ingreso.
 	 */
@@ -215,299 +221,191 @@ public class ManagerDAO {
 		return m;
 	}
 
-
 	/**
-	 * Este metodo busca una mascota por diferentes atributos segun el usuario ingrese
+	 * Este metodo busca una mascota por diferentes atributos segun el usuario
+	 * ingrese
+	 * 
 	 * @param species
 	 * @param sex
 	 * @param size
 	 * @param potentDangerous
-	 * @return la mascota 
+	 * @return la mascota
 	 */
 
-	public String findByMultipleFields(int n, String species, String sex,  String potentDangerous) {
+	public String findByMultipleFields(int n, String species, String sex, String potentDangerous) {
 		String mensaje = "";
 		for (int i = 0; i < n; i++) {
 
 			String dangerous = String.valueOf(this.petsList.get(i).isPotentDangerous());
 			// solo species
 
-			if (this.petsList.get(i).getSpecies().equals(species)
-					&& (sex.equals("")  && potentDangerous.equals(""))) {
-				if(species.equals("C")) {
+			if (this.petsList.get(i).getSpecies().equals(species) && (sex.equals("") && potentDangerous.equals(""))) {
+				if (species.equals("C")) {
 					this.petsList.get(i).setSpecies("CANINO");
-					mensaje += this.petsList.get(i) + "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-				}else if(species.equals("F")){
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).getSpecies() + "\n";
+				} else if (species.equals("F")) {
 					this.petsList.get(i).setSpecies("FELINO");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).getSpecies() + "\n";
 				}
 
-				//solo sexo
-			} else if ( this.petsList.get(i).getSex().equals(sex)) {
-				if( sex.equals("H")) {
+				// solo sexo
+			} else if (this.petsList.get(i).getSex().equals(sex) && (species.equals("") && potentDangerous.equals(""))) {
+				if (sex.equals("H")) {
 					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-				}else if(sex.equals("M")) {
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).getSex() + "\n";
+				} else if (sex.equals("M")) {
 					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).getSex() + "\n";
 				}
-			//potentDangerous
-			} else if (potentDangerous.equals("")) {
-				if( potentDangerous.equals("T")) {
+				// potentDangerous
+			} else if (dangerous.equals(potentDangerous) && (sex.equals("") && species.equals(""))) {
+				if (potentDangerous.equals("T")) {
 					this.petsList.get(i).setPotentDangerous(true);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-				}else if(potentDangerous.equals("F")) {
-					this.petsList.get(i).setPotentDangerous(true);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (potentDangerous.equals("F")) {
+					this.petsList.get(i).setPotentDangerous(false);
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "+this.petsList.get(i).isPotentDangerous() + "\n";
 				}
 				// species y sex
-			} else if (this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex) && potentDangerous.equals("")) {
-				if(species.equals("C") && sex.equals("H")) {
+			} else if (this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex)
+					&& potentDangerous.equals("")) {
+				if (species.equals("C") && sex.equals("H")) {
 					this.petsList.get(i).setSpecies("CANINO");
 					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + "\n";
+					if (mensaje.equals("")) {
+						mensaje = "en el rango de 0-" + n + " NO se hallo el filtrado escogido";
 					}
-				}else if(species.equals("C") && sex.equals("M")) {
+				} else if (species.equals("C") && sex.equals("M")) {
 					this.petsList.get(i).setSpecies("CANINO");
 					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + "\n";
+					if (mensaje.equals("")) {
+						mensaje = "en el rango de 0-" + n + " NO se hallo el filtrado escogido";
 					}
-				}else if(species.equals("F") && sex.equals("H")) {
+				} else if (species.equals("F") && sex.equals("H")) {
 					this.petsList.get(i).setSpecies("FELINO");
 					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-				}else if (species.equals("F") && sex.equals("H")) {
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + "\n";
+				} else if (species.equals("F") && sex.equals("M")) {
 					this.petsList.get(i).setSpecies("FELINO");
 					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + "\n";
 				}
 			}
-			//DANGEROUS Y SEXO
-			else if(this.petsList.get(i).getSex().equals(sex) && potentDangerous.equals("")) {	
-				if (sex.equals("H")&& potentDangerous.equals("T")) {
+			// DANGEROUS Y SEXO
+			else if (this.petsList.get(i).getSex().equals(sex) && dangerous.equals(potentDangerous) && species.equals("")) {
+				if (sex.equals("H") && potentDangerous.equals("T")) {
 					this.petsList.get(i).setSex("HEMBRA");
 					this.petsList.get(i).setPotentDangerous(true);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-				}else if(sex.equals("H")&& potentDangerous.equals("F")) {
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSex() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (sex.equals("H") && potentDangerous.equals("F")) {
 					this.petsList.get(i).setSex("HEMBRA");
 					this.petsList.get(i).setPotentDangerous(false);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-					
-				}else if(sex.equals("M")&& potentDangerous.equals("T")) {
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSex() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+
+				} else if (sex.equals("M") && potentDangerous.equals("T")) {
 					this.petsList.get(i).setSex("MACHO");
 					this.petsList.get(i).setPotentDangerous(true);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-					
-				}else if(sex.equals("M")&& potentDangerous.equals("F")) {
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setPotentDangerous(false);
-					mensaje += this.petsList.get(i)+ "\n";
-					if(mensaje.equals("")) {
-						mensaje = "en el rango de 0-"+n+" NO se hallo el filtrado escogido";
-					}
-					
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSex() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
 				}
+
+			} else if (sex.equals("M") && potentDangerous.equals("F")) {
+				this.petsList.get(i).setSex("MACHO");
+				this.petsList.get(i).setPotentDangerous(false);
+				mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+						+ this.petsList.get(i).getSex() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+
 			}
-			//SPECIES Y DANGEROUS
-			else if(this.petsList.get(i).getSpecies().equals(species) && potentDangerous.equals("")) {	
-				if(species.equals("C") &&  potentDangerous.equals("T")) {
+			// SPECIES Y DANGEROUS
+			else if (this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous) && sex.equals("")) {
+				if (species.equals("C") && potentDangerous.equals("T")) {
 					this.petsList.get(i).setSpecies("CANINO");
 					this.petsList.get(i).setPotentDangerous(true);
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
-					if(species.equals("C")  && potentDangerous.equals("F")) {
-						this.petsList.get(i).setSpecies("CANINO");
-						this.petsList.get(i).setPotentDangerous(false);
-						mensaje += this.petsList.get(i)+ "\n";
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+					if (mensaje.equals("")) {
+						mensaje = "en el rango de 0-" + n + " NO se hallo el filtrado escogido";
 					}
-				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
-					if(species.equals("F")  && potentDangerous.equals("T")) {
-						this.petsList.get(i).setSpecies("FELINO");
-						this.petsList.get(i).setPotentDangerous(true);
-						mensaje += this.petsList.get(i)+ "\n";
-					}
-				}else if(this.petsList.get(i).getSpecies().equals(species) && dangerous.equals(potentDangerous)) {
-					if(species.equals("F")  && potentDangerous.equals("F")) {
-						this.petsList.get(i).setSpecies("FELINO");
-						this.petsList.get(i).setPotentDangerous(false);
-						mensaje += this.petsList.get(i)+ "\n";
-					}
+				} else if (species.equals("C") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setSpecies("CANINO");
+					this.petsList.get(i).setPotentDangerous(false);
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
 				}
-				//				TODOS		
-			}else if(this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex) && dangerous.equals(potentDangerous)) {
-				if(species.equals("C") && sex.equals("H")  && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("PEQUEÑO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("PEQUEÑO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("MEDIANO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("MEDIANO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("GRANDE");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("C") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("CANINO");
-					this.petsList.get(i).setSex("MACHO");
-					this.petsList.get(i).setSize("GRANDE");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("T")) {
+
+				else if (species.equals("F") && potentDangerous.equals("T")) {
 					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setPotentDangerous(true);
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+
+				} else if (species.equals("F") && potentDangerous.equals("F")) {
 					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H")&& potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("H") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("HEMBRA");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("T")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
-				}else if(species.equals("F") && sex.equals("M") && potentDangerous.equals("F")) {
-					this.petsList.get(i).setSpecies("FELINO");
-					this.petsList.get(i).setSex("MACHO");
-					mensaje += this.petsList.get(i)+ "\n";
+					this.petsList.get(i).setPotentDangerous(false);
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).isPotentDangerous() + "\n";
+
 				}
-				//
+				// TODOS
+			} else if (this.petsList.get(i).getSpecies().equals(species) && this.petsList.get(i).getSex().equals(sex)
+					&& dangerous.equals(potentDangerous)) {
+				if (species.equals("C") && sex.equals("H") && potentDangerous.equals("T")) {
+					this.petsList.get(i).setSpecies("CANINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("C") && sex.equals("H") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setSpecies("CANINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("C") && sex.equals("M") && potentDangerous.equals("T")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("C") && sex.equals("M") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("F") && sex.equals("H") && potentDangerous.equals("T")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("F") && sex.equals("H") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("F") && sex.equals("M") && potentDangerous.equals("T")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				} else if (species.equals("F") && sex.equals("M") && potentDangerous.equals("F")) {
+					this.petsList.get(i).setSpecies("FELINO");
+					this.petsList.get(i).setSex("HEMBRA");
+					mensaje += this.petsList.get(i).getId() + " " + this.petsList.get(i).getMicrochip() + " "
+							+ this.petsList.get(i).getSpecies() + " " + this.petsList.get(i).getSex() + " "
+							+ this.petsList.get(i).isPotentDangerous() + "\n";
+				}
 			}
 		}
 		return mensaje;
@@ -520,6 +418,7 @@ public class ManagerDAO {
 	public ArrayList<Pet> getPetsList() {
 		return petsList;
 	}
+
 	/**
 	 * 
 	 * @param El arraylist petsList

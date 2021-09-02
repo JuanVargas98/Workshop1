@@ -62,7 +62,28 @@ public class Controller {
 					}
 					break;
 				case 6:
-					this.v.printMessage(this.mDAO.findByMultipleFields(15, "C", "", ""));
+					if (this.mDAO.getPetsList().isEmpty()) {
+						this.v.printMessage("Debes seleccionar la opcion '1' primero");
+					}else {
+						int n = this.v.readInt("Escriba el limite de datos a mostrar\nNo se pase de 80");
+						String species = this.v.readString("Escriba una de las siguientes opciones para las Especies\nC = CANINO o F = FELINO\n (Oprima ENTER si desea dejarlo vacio)");
+						String sex = this.v.readString("Escriba una de las siguientes opciones para Sexo\nH = HEMBRA o M = MACHO\n(Oprima ENTER si desea dejarlo vacio)");
+						String dangerous = this.v.readString("EScriba una de las siguientes opciones para potentDangerous\nT = SI o F = NO\n (Oprima ENTER si desea dejarlo vacio)");
+						if(n <= 80) {
+							this.v.printMessage(this.mDAO.findByMultipleFields(n, species.toUpperCase(), sex.toUpperCase(), dangerous.toUpperCase()));
+						}else {
+							this.v.printMessage("El limite no puede ser mayor a 20");
+						}
+						if(!species.equals("C") || !species.equals("F") || !species.equals("")) {
+							this.v.printMessage("Ingresa 'C', 'F' o oprime ENTER");
+						}
+						if(!sex.equals("H") || !sex.equals("M") || !sex.equals("")) {
+							this.v.printMessage("Ingresa 'M', 'H' o oprime ENTER");
+						}
+						if(!dangerous.equals("T") || !dangerous.equals("F") || !dangerous.equals("")) {
+							this.v.printMessage("Ingresa 'T', 'F' o oprime ENTER");
+						}
+					}
 					break;
 				case 7:
 					bandera = true;
